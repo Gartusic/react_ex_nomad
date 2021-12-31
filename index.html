@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<!-- vanila.html의 코드를 리액트의 방식으로 바꿈 -->
+
+<!-- react를 불러오는 코드 -->
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<!-- react dom은 모든 리액트 객체를 Html안에 넣어주는 역할을 해줌 -->
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<!-- JSX의 변환기인 Babel을 import -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+
+<script type = "text/babel"> // babel 변환기를 이용하는 방법
+    const root = document.getElementById("root");
+    // let counter = 0;
+
+    // function countUp(){
+    //     counter = counter +1;
+    //     //render();// re-rendering, 함수가 실행될때마다 변경사항을 다시 렌더링해줌.
+    //     //최적의 방법은 아니다. 나중에 변경사항을 찾아 그 부분만 바꾸주는 작업을 하자
+    // }
+    function render(){
+        ReactDOM.render(<App />,root);
+    };
+
+    const App = () => {
+        let [counter, modifier] = React.useState(0); // 상태를 자동으로 파악함
+        const onClick = () => {
+            counter = counter +1;
+            console.log(counter);
+        };
+        return(
+        <div>
+            <h3>Total clicks: {counter}</h3>
+            <button onClick={onClick}>Click me</button>
+        </div>
+        )
+    }; // JSX를 렌더링하는 방법. 우리가 만든 요소들은 항상 대문자로 시작해야함!!
+    
+    //const container = React.createElement("div",null,[Title,Button]);
+
+    render(); //렌더링 후 contaier를 root안에 넣어줌
+</script>
+
+</html>
