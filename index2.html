@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<!-- vanila.html의 코드를 리액트의 방식으로 바꿈 -->
+
+<!-- react를 불러오는 코드 -->
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<!-- react dom은 모든 리액트 객체를 Html안에 넣어주는 역할을 해줌 -->
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<!-- JSX의 변환기인 Babel을 import -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+
+<script type = "text/babel"> // babel 변환기를 이용하는 방법
+    //props 공부하기
+
+    function Btn({text, big, changeValue}){
+        console.log(text, "was rendered") //인자를 받고있음을 알 수 있다. 
+        return <button 
+            onClick ={changeValue}
+            style={{
+                backgroundColor: "tomato",
+                color:"white",
+                padding:"10px 20px",
+                border:0,
+                borderRadius:10,
+                fontSize: big? 18 : 16,
+            }}>{text}</button> // 받은 정보르 사용함
+    }
+
+// props 가 변경되지 않았을 시 리렌더를 하지 않기 위해서는 React.memo가 필요하다. 
+    const MemorizedBtn = React.memo(Btn)
+
+    const App = () => {
+        const [value, setValue] = React.useState("Save Changes");
+        const changeValue = () => setValue("Revert Changes");
+        return(
+            <div>
+                <MemorizedBtn text={value} big={false} changeValue={changeValue}/>
+                <MemorizedBtn text="Continue" big={true}/>
+            </div>
+        );
+        
+    }; 
+    const root = document.getElementById("root")
+    ReactDOM.render(<App />,root);
+</script>
+
+</html>

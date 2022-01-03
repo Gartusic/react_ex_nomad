@@ -30,11 +30,21 @@
     };
 
     const App = () => {
-        let [counter, modifier] = React.useState(0); // 상태를 자동으로 파악함
+        const [counter, setCounter] = React.useState(0); // 상태를 자동으로 파악함. array를 생성함?
         const onClick = () => {
-            counter = counter +1;
-            console.log(counter);
+            
+            //1. 
+            //  setCounter("하나"); // 값을 직접 설정해서 바꿀 수 있게 함. 
+            
+            //2. 
+            //setCounter(counter +1);
+             //  modifier 함수가 자동으로 counter를 업데이트해주는 역할을 함 (리렌더링을 따로 할 필요없이 바뀐 부분만 업데이트-재생성 해줌!)
+            
+             //3.
+            setCounter((current) => current + 1); //current는 무조건 '현재 값'을 가져올 수 있게 해준다. 
         };
+        console.log("rendered");
+        console.log(counter);
         return(
         <div>
             <h3>Total clicks: {counter}</h3>

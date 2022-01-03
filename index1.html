@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<!-- vanila.html의 코드를 리액트의 방식으로 바꿈 -->
+
+<!-- react를 불러오는 코드 -->
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<!-- react dom은 모든 리액트 객체를 Html안에 넣어주는 역할을 해줌 -->
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<!-- JSX의 변환기인 Babel을 import -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+
+<script type = "text/babel"> // babel 변환기를 이용하는 방법
+    
+    function MinutesToHours(){
+        const [amount, setAmount] = React.useState(0);
+        const [inverted, setInverted] = React.useState(false);
+        const onChange = (event) => {
+            setAmount(event.target.value);
+        }
+        const reset = () => setAmount(0);
+        const onFlip = () => {
+            reset();
+            setInverted(current => !current);
+        }
+        return(
+        <div>
+            <label htmlFor="minutes">Minutes</label>
+            <input 
+                value ={inverted ? amount*60 : amount}
+                type="number" 
+                id="minutes" 
+                placeholder="Minutes"
+                disabled = {inverted === true} //inverted가 true이면 minutes가 disabled된다. 
+                onChange ={onChange} // 입력값을 인식하고 바꿔준당
+             />
+            
+            <h4>you want to convert {amount}</h4>
+            <label htmlFor="hours">Hours</label>
+            <input 
+                type="number" 
+                value ={inverted ? amount : Math.round(amount/60)} 
+                id="hours"
+                placeholder="Hours"
+                disabled = {inverted === false} //inverted가 false이면 hours가 disabled된다. 
+                onChange ={onChange}
+            />
+            <div>
+                <button onClick={reset}>Reset</button>
+                <button onClick={onFlip}>Flip</button>
+            </div>
+            
+        </div>
+        )
+    };
+
+
+    function KmToMiles(){
+        return <h3>KM 2 M </h3>
+    }
+
+    const App = () => {
+        const [index, setIndex] = React.useState("xx");
+        const onSelect = (event) => {
+            setIndex(event.target.value); // 사용자가 선택한 부분을 통해 인덱스를 바꾼당. 
+        }
+        return(
+            <div>
+                <h1>Super Converter</h1>
+                <select value={index} onChange={onSelect}>
+                    <option value="xx">Select your units</option>
+                    <option value="0">Minutes & Hours</option>
+                    <option value="1">KM & Miles</option>   
+                </select>
+                <hr />
+                {index === "xx"? "Please select your unit": null }
+                {index === "0"? <MinutesToHours />: null }
+                {index === "1"? <KmToMiles />: null}
+            </div>
+        );
+        
+    }; 
+    const root = document.getElementById("root")
+    ReactDOM.render(<App />,root);
+</script>
+
+</html>
