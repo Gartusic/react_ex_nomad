@@ -1,5 +1,7 @@
 import Button from "./Button";
-import TodoList from "./TodoList"
+import CoinTracker from "./CoinTracker";
+import TodoList from "./TodoList";
+import MovieApp from "./MovieApp";
 import styles from "./App.module.css";
 
 import {useEffect, useState} from "react";
@@ -77,7 +79,13 @@ function App() {
       <div>
         <TodoList />
       </div>
-    
+      <div>
+        <CoinTracker />
+      </div>
+      <hr />
+      <div>
+        <MovieApp />
+      </div>
     </div>
   );
 }
