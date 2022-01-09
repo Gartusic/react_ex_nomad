@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom"; //a태그같은 역할을 한당.
 
-function Movie({medium_cover_image,summary,title,genres}){
+function Movie({id,medium_cover_image,summary,title,genres}){
     return <div>
-    <h2>{title}</h2>
+    <Link to={`movie/${id}`}><h2>{title}</h2></Link>
     <img src={medium_cover_image} alt={title} />
-    <p>{summary}</p>
+    <p>{summary.length > 235 ? `${summary.slice(0, 235)}` : summary}</p>
     {genres? <ul>
         {genres.map((g) => (
             <li key={g}>
@@ -16,6 +17,7 @@ function Movie({medium_cover_image,summary,title,genres}){
 }
 
 Movie.propTypes = {
+    id: PropTypes.number.isRequired,
     medium_cover_image: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     summary: PropTypes.string.isRequired,
